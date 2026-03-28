@@ -1,112 +1,133 @@
 import { motion } from 'motion/react'
-import { ChevronDown, Star, ShieldCheck, Zap } from 'lucide-react'
-import AnimatedSection from './ui/AnimatedSection'
-import GoldButton from './ui/GoldButton'
-import SectionLabel from './ui/SectionLabel'
+import SplitText from './ui/SplitText'
+import MagneticButton from './ui/MagneticButton'
 
-const badges = [
-  { icon: Zap, label: '500+ Projects' },
-  { icon: Star, label: '4.9★ Rating' },
-  { icon: ShieldCheck, label: 'Fully Licensed' },
+const stats = [
+  { value: '500+', label: 'Projects' },
+  { value: '4.9★', label: 'Rating' },
+  { value: '20+', label: 'Years' },
+  { value: '24/7', label: 'Emergency' },
 ]
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col overflow-hidden bg-base"
     >
-      {/* Background radial glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 15% 50%, rgba(245,197,24,0.07) 0%, transparent 65%)',
-        }}
-      />
+      {/* Section number watermark */}
+      <span
+        className="section-num"
+        style={{ top: '-0.08em', left: '-0.04em' }}
+        aria-hidden="true"
+      >
+        01
+      </span>
 
-      {/* Faint grid lines */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg, transparent, transparent 79px, #F5C518 79px, #F5C518 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, #F5C518 79px, #F5C518 80px)',
-        }}
-      />
+      {/* Main grid — flex-1 fills remaining height */}
+      <div className="relative z-10 flex-1 flex flex-col lg:grid lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_440px]">
 
-      {/* Animated background pulse */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        animate={{ scale: [1, 1.04, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          background:
-            'radial-gradient(ellipse 40% 40% at 80% 20%, rgba(245,197,24,0.04) 0%, transparent 70%)',
-        }}
-      />
+        {/* Left: Giant headline */}
+        <div className="flex flex-col justify-center pt-28 pb-12 px-6 lg:px-12">
+          <motion.p
+            className="rule-volt text-text-muted text-xs uppercase tracking-[0.25em] mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Austin, TX · Est. 2004
+          </motion.p>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24">
-        <AnimatedSection delay={0}>
-          <SectionLabel>Licensed & Insured · Austin, TX · TDLR #EC12345</SectionLabel>
-        </AnimatedSection>
+          {/* VOLTA */}
+          <SplitText
+            as="h1"
+            className="font-display leading-[0.88] tracking-tight text-text-primary"
+            style={{ fontSize: 'clamp(80px, 14vw, 172px)' }}
+            delay={0.2}
+            stagger={0.08}
+          >
+            VOLTA
+          </SplitText>
 
-        <AnimatedSection delay={0.1}>
-          <h1 className="font-display text-[clamp(72px,12vw,140px)] leading-none tracking-wide mb-6">
-            <span className="text-white block">WIRING AUSTIN'S</span>
-            <span className="text-gold-gradient block">FUTURE.</span>
-          </h1>
-        </AnimatedSection>
+          {/* ELECTRIC — volt color */}
+          <SplitText
+            as="h1"
+            className="font-display leading-[0.88] tracking-tight text-volt"
+            style={{ fontSize: 'clamp(80px, 14vw, 172px)' }}
+            delay={0.3}
+            stagger={0.08}
+          >
+            ELECTRIC
+          </SplitText>
 
-        <AnimatedSection delay={0.2}>
-          <p className="text-text-muted text-lg md:text-xl max-w-xl leading-relaxed mb-10">
-            From circuit breakers to full rewires, Volta Electric delivers precision electrical
-            work for homes and businesses that demand nothing but the best.
+          {/* CO. */}
+          <SplitText
+            as="h1"
+            className="font-display leading-[0.88] tracking-tight text-text-primary"
+            style={{ fontSize: 'clamp(80px, 14vw, 172px)' }}
+            delay={0.38}
+            stagger={0.08}
+          >
+            CO.
+          </SplitText>
+        </div>
+
+        {/* Right: Info column */}
+        <motion.div
+          className="border-t border-rule lg:border-t-0 lg:border-l border-rule flex flex-col justify-center gap-8 px-6 lg:px-10 pt-10 pb-12 lg:pt-28"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <p className="text-text-muted text-xs uppercase tracking-[0.2em]">
+            Licensed &amp; Insured · TDLR #EC12345
           </p>
-        </AnimatedSection>
 
-        <AnimatedSection delay={0.3}>
-          <div className="flex flex-wrap gap-4 mb-14">
-            <GoldButton href="#contact">Get a Free Quote</GoldButton>
-            <GoldButton href="#services" variant="outline">
-              View Our Services
-            </GoldButton>
-          </div>
-        </AnimatedSection>
+          <p className="text-text-primary text-base leading-relaxed">
+            From circuit breakers to full rewires — precision electrical work for homes and
+            businesses that demand nothing but the best.
+          </p>
 
-        {/* Trust badges */}
-        <AnimatedSection delay={0.4}>
-          <div className="flex flex-wrap gap-6 md:gap-10">
-            {badges.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-sm bg-gold/10 border border-gold/20 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-gold" />
-                </div>
-                <span className="text-sm font-semibold text-text-primary uppercase tracking-wider">
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </AnimatedSection>
+          <MagneticButton
+            href="#contact"
+            className="bg-volt on-volt px-8 py-4 font-bold uppercase tracking-widest text-sm w-full"
+          >
+            Get a Free Quote
+          </MagneticButton>
+
+          <a
+            href="#services"
+            className="text-text-muted text-xs uppercase tracking-widest hover:text-text-primary transition-colors cursor-none text-center"
+          >
+            View Our Services ↓
+          </a>
+
+          <p className="text-text-dim text-xs border-t border-rule pt-6">
+            Serving Greater Austin since 2004. Every job handled by our licensed team — no
+            subcontracting, ever.
+          </p>
+        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Stats bar */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-text-muted"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        className="relative z-10 border-t border-rule grid grid-cols-2 lg:grid-cols-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        <ChevronDown className="w-5 h-5" />
+        {stats.map(({ value, label }, i) => (
+          <div
+            key={label}
+            className={`py-6 px-6 lg:px-10 flex flex-col gap-1 ${i % 2 === 0 ? 'border-r border-rule' : ''} ${i < 2 ? 'lg:border-r border-rule border-b lg:border-b-0' : ''} ${i === 2 ? 'lg:border-r border-rule' : ''}`}
+          >
+            <span className="font-display text-3xl text-volt tracking-wide leading-none">
+              {value}
+            </span>
+            <span className="text-text-muted text-xs uppercase tracking-widest">{label}</span>
+          </div>
+        ))}
       </motion.div>
-
-      {/* Bottom gradient fade */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, transparent, #0A0A0A)',
-        }}
-      />
     </section>
   )
 }

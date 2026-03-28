@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-gold: #F5C518;
-  --color-gold-dim: #C9A227;
-  --color-dark-base: #0A0A0A;
-  --color-dark-surface: #111111;
-  --color-dark-card: #161616;
-  --color-dark-border: #242424;
-  --color-text-primary: #F0F0F0;
-  --color-text-muted: #8A8A8A;
+  --color-volt:          #E8FF47;
+  --color-volt-dim:      #C4D93A;
+  --color-base:          #080808;
+  --color-surface:       #0E0E0E;
+  --color-panel:         #141414;
+  --color-rule:          #1E1E1E;
+  --color-text-primary:  #F2F2F0;
+  --color-text-muted:    #6B6B6B;
+  --color-text-dim:      #2E2E2E;
   --font-family-display: "Bebas Neue", sans-serif;
-  --font-family-body: "Inter Variable", sans-serif;
+  --font-family-body:    "Inter Variable", sans-serif;
 }
 
 *, *::before, *::after {
@@ -19,40 +20,125 @@
 
 html {
   scroll-behavior: smooth;
+  cursor: none;
 }
 
 body {
-  background-color: #0A0A0A;
-  color: #F0F0F0;
+  background-color: #080808;
+  color: #F2F2F0;
   font-family: "Inter Variable", "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
-/* Subtle noise texture overlay for premium depth */
-body::after {
-  content: '';
+/* Custom cursor */
+.cursor-dot {
   position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.025;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #E8FF47;
+  border-radius: 50%;
   pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(232, 255, 71, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  mix-blend-mode: difference;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #E8FF47;
+  transform-origin: left center;
   z-index: 9999;
 }
 
-.text-gold-gradient {
-  background: linear-gradient(135deg, #F5C518 0%, #FFF176 50%, #C9A227 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Marquee keyframe */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-.glow-gold {
-  box-shadow: 0 0 30px rgba(245, 197, 24, 0.35), 0 0 60px rgba(245, 197, 24, 0.12);
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 25s linear infinite;
+  will-change: transform;
 }
 
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Section number watermark */
+.section-num {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(120px, 20vw, 260px);
+  line-height: 1;
+  color: #1A1A1A;
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+  z-index: 0;
+}
+
+/* Rule with volt pip */
+.rule-volt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rule-volt::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #E8FF47;
+  flex-shrink: 0;
+}
+
+/* Font display utility */
 .font-display {
   font-family: "Bebas Neue", sans-serif;
+}
+
+/* Volt text */
+.text-volt {
+  color: #E8FF47;
+}
+
+/* Text on volt background */
+.on-volt {
+  color: #080808;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

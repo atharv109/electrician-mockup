@@ -21,12 +21,12 @@ export default function GoldButton({
   disabled = false,
 }: GoldButtonProps) {
   const base =
-    'inline-flex items-center justify-center gap-2 px-8 py-4 font-bold uppercase tracking-widest text-sm transition-all duration-200 rounded-sm cursor-pointer'
+    'inline-flex items-center justify-center gap-2 px-8 py-4 font-bold uppercase tracking-widest text-sm transition-all duration-200 cursor-none'
 
   const styles =
     variant === 'solid'
-      ? 'bg-gold text-black hover:bg-gold-dim'
-      : 'border border-gold text-gold hover:bg-gold/10'
+      ? 'bg-volt on-volt hover:bg-volt-dim'
+      : 'border border-volt text-volt hover:bg-volt/10'
 
   const combined = `${base} ${styles} ${className}`
 
@@ -35,7 +35,7 @@ export default function GoldButton({
       <motion.a
         href={href}
         className={combined}
-        whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(245,197,24,0.45)' }}
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
       >
         {children}
@@ -49,7 +49,7 @@ export default function GoldButton({
       onClick={onClick}
       disabled={disabled}
       className={combined}
-      whileHover={disabled ? {} : { scale: 1.03, boxShadow: '0 0 40px rgba(245,197,24,0.45)' }}
+      whileHover={disabled ? {} : { scale: 1.02 }}
       whileTap={disabled ? {} : { scale: 0.97 }}
     >
       {children}
