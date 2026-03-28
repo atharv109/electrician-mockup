@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #F5C518;
+  --color-gold-dim: #C9A227;
+  --color-dark-base: #0A0A0A;
+  --color-dark-surface: #111111;
+  --color-dark-card: #161616;
+  --color-dark-border: #242424;
+  --color-text-primary: #F0F0F0;
+  --color-text-muted: #8A8A8A;
+  --font-family-display: "Bebas Neue", sans-serif;
+  --font-family-body: "Inter Variable", sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #F0F0F0;
+  font-family: "Inter Variable", "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Subtle noise texture overlay for premium depth */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F5C518 0%, #FFF176 50%, #C9A227 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px rgba(245, 197, 24, 0.35), 0 0 60px rgba(245, 197, 24, 0.12);
+}
+
+.font-display {
+  font-family: "Bebas Neue", sans-serif;
+}
